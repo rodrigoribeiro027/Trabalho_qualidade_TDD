@@ -1,26 +1,69 @@
 // src/pages/Signup.tsx
-import React from 'react';
 import { Link } from 'react-router-dom';
 import './Auth.css';
+import { useNavigate } from "react-router";
+import React, { useState, useEffect, useCallback, SetStateAction, useRef } from "react";
+import axios from 'axios';
+import { api } from "../service/api";
+import { useForm } from "react-hook-form";
+
+
+interface Cadastro {
+  nome: String,
+  email: String;
+  senha: String,
+  tipoUsuario: Number;
+}
 
 const Cadastro: React.FC = () => {
+
+  const navigate = useNavigate();
+
+    const cadastroUsuario = useCallback(async (data: Cadastro) => {
+        await api
+            .post<Cadastro>(`/usuarios/criar`, {
+                nome: data.nome,
+                email: data.email,
+                senha: data.senha,
+                tipoUsuario: data.tipoUsuario
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+    }, []);
+
+    const onSubmit = useCallback(async (data: Cadastro) => {
+        cadastroUsuario(data);
+        navigate("/login")
+    }, []);
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<Cadastro>({
+        mode: "onBlur",
+    });
+
   return (
     <div className="auth-container">
       <h2 className="auth-title">Cadastro</h2>
-      <form className="auth-form">
+      <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="auth-form-group">
           <label>Nome:</label>
-          <input type="text" required className="auth-input" />
+          <input type="text" required className="auth-input" {...register("nome")} />
         </div>
         <div className="auth-form-group">
           <label>Email:</label>
-          <input type="email" required className="auth-input" />
+          <input type="email" required className="auth-input" {...register("email")} />
         </div>
         <div className="auth-form-group">
           <label>Senha:</label>
-          <input type="password" required className="auth-input" />
+          <input type="password" required className="auth-input" {...register("senha")} />
         </div>
-        <button type="submit" className="auth-button">Cadastrar</button>
+        <button type="submit" className="auth-button" onSubmit={() => navigate(`/login`)}>Cadastrar</button>
       </form>
       <p className="auth-link">
         Já tem uma conta? <Link to="/login">Login</Link>

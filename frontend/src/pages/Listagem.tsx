@@ -1,10 +1,12 @@
 // src/pages/UserList.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
+import { api } from '../service/api';
+import { useParams } from 'react-router-dom';
 
 interface User {
   id: number;
-  name: string;
+  nome: string;
   email: string;
 }
 
@@ -45,16 +47,30 @@ const UserEmail = styled.span`
 
 const UserList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const { id } = useParams();
 
-  useEffect(() => {
-    // Simulação de carregamento de usuários (substituir com lógica real)
-    const mockUsers: User[] = [
-      { id: 1, name: 'Usuário 1', email: 'usuario1@example.com' },
-      { id: 2, name: 'Usuário 2', email: 'usuario2@example.com' },
-      { id: 3, name: 'Usuário 3', email: 'usuario3@example.com' },
-    ];
-    setUsers(mockUsers);
-  }, []);
+  async function getAllUsers() {
+    const response = await api.get<User[]>("/usuarios/buscar");
+    setUsers(response.data);
+}
+
+const deleteUser = useCallback(async (id: string) => {
+  await api
+      .delete(`/usuarios/excluir/${id}`)
+      .then(function (response) {
+          if (response) {
+              console.log(response)
+          }
+      })
+      .catch((err) => {
+          console.log(err);
+      });
+}, []);
+
+
+useEffect(() => {
+  getAllUsers();
+}, []);
 
   return (
     <Container>
@@ -62,7 +78,8 @@ const UserList: React.FC = () => {
       <UserListContainer>
         {users.map(user => (
           <UserListItem key={user.id}>
-            <UserName>{user.name}</UserName> - <UserEmail>{user.email}</UserEmail>
+            <UserName>{user.nome}</UserName> - <UserEmail>{user.email}</UserEmail>
+            <button onClick={deleteUser(String(users?.id))} icon="pi pi-trash"></button>
           </UserListItem>
         ))}
       </UserListContainer>

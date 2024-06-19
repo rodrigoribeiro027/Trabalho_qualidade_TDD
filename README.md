@@ -16,17 +16,17 @@ git clone https://github.com/rodrigoribeiro027/Trabalho_qualidade_TDD.git
 ```console
 Deixamos um exemplo.env para ser seguido para conexão do banco
 ```
-<strong> 2. entre na pasta do back-end</strong> 
+<strong> 3. entre na pasta do back-end</strong> 
 ```console
-Cd backend
+cd backend
 ```
-<strong> 3. Instalar dependencias do Projeto </strong> 
+<strong> 4. Instalar dependencias do Projeto </strong> 
 ```console
-Npm install
+npm install
 ```
 <strong> 5. Executar a aplicação </strong> 
 ```console
-Npm test
+npm test
 ```
 ## Test Results
 
@@ -54,3 +54,53 @@ Npm test
 | Tests       | 5 passed, 5 total     |
 | Snapshots   | 0 total               |
 | Tempo Total | 8.297 s               |
+
+
+<h1> Tutorial de Utilização e Instalação da Aplicação do frontend </h1>
+
+<strong> 1. Clonar o repositório do Trabalho_qualidade_TDD </strong>
+```console
+git clone https://github.com/rodrigoribeiro027/Trabalho_qualidade_TDD.git
+```
+
+<strong> 2. Peque seu link do banco MongoDB e crie um arquivo .env na raiz do backend</strong> 
+```console
+Deixamos um exemplo.env para ser seguido para conexão do banco
+```
+<strong> 3. entre na pasta do back-end</strong> 
+```console
+cd backend
+```
+<strong> 4. Instalar dependencias do Projeto </strong> 
+```console
+npm install
+```
+<strong> 5. Executar o backend do Projeto </strong> 
+```console
+npm run dev
+```
+
+### Em outro terminal
+
+<strong> 1. entre na pasta do front-end</strong> 
+```console
+cd frontend
+```
+<strong> 2. Instalar dependencias do Projeto </strong> 
+```console
+npm install
+```
+<strong> 3. Executar o frontend do Projeto </strong> 
+```console
+npm start
+```
+
+### Em outro terminal
+<strong> 1. entre na pasta do front-end</strong> 
+```console
+cd frontend
+```
+<strong> 2. Executar o teste </strong> 
+```console
+npx cypress open
+```

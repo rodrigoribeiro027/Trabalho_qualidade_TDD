@@ -51,7 +51,7 @@ const Login: React.FC = () => {
         <button type="submit" className="auth-button" onClick={login}>Login</button>
       </form>
       <p className="auth-link">
-        Não tem uma conta? <Link to="/cadastro">Cadastre-se</Link>
+        Não tem uma conta? <Link className='cadastrar' to="/cadastro">Cadastre-se</Link>
       </p>
     </div>
   );

@@ -1,17 +1,16 @@
-// src/pages/UserList.tsx
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { api } from '../service/api';
-import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface User {
-  id: number;
+  _id: string;
   nome: string;
   email: string;
 }
 
 const Container = styled.div`
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
@@ -45,41 +44,58 @@ const UserEmail = styled.span`
   color: #666;
 `;
 
+const Button1 = styled.button`
+  color: #fa1616;
+  border-radius: 4px;
+  padding: 10px;
+  margin-left: 10px;
+  font-weight: bold;
+`;
+
+const Button2 = styled.button`
+  color: #f2cc33;
+  border-radius: 4px;
+  padding: 10px;
+  margin-left: 10px;
+  font-weight: bold;
+`;
+
 const UserList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const { id } = useParams();
+  const navigate = useNavigate();
 
-  async function getAllUsers() {
-    const response = await api.get<User[]>("/usuarios/buscar");
-    setUsers(response.data);
-}
+  const getAllUsers = async () => {
+    try {
+      const response = await api.get<User[]>("/usuarios/buscar");
+      setUsers(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar usuários:', error);
+    }
+  };
 
-const deleteUser = useCallback(async (id: string) => {
-  await api
-      .delete(`/usuarios/excluir/${id}`)
-      .then(function (response) {
-          if (response) {
-              console.log(response)
-          }
-      })
-      .catch((err) => {
-          console.log(err);
-      });
-}, []);
+  const deleteUser = useCallback(async (id: string) => {
+    try {
+      const response = await api.delete(`/usuarios/excluir/${id}`);
+      console.log(response);
+      navigate(0); // Atualiza a lista após a exclusão
+    } catch (err) {
+      console.error('Erro ao excluir usuário:', err);
+    }
+  }, [navigate]);
 
-
-useEffect(() => {
-  getAllUsers();
-}, []);
+  useEffect(() => {
+    getAllUsers();
+  }, []);
 
   return (
     <Container>
       <Title>Lista de Usuários</Title>
       <UserListContainer>
         {users.map(user => (
-          <UserListItem key={user.id}>
+          <UserListItem key={user._id}>
             <UserName>{user.nome}</UserName> - <UserEmail>{user.email}</UserEmail>
-            <button onClick={deleteUser(String(users?.id))} icon="pi pi-trash"></button>
+            <Button1 type="button" onClick={() => deleteUser(user._id)}>Excluir</Button1>
+            <Button2 type="button" onClick={() => navigate(`/atualizar/${user._id}`)}>Editar</Button2>
           </UserListItem>
         ))}
       </UserListContainer>

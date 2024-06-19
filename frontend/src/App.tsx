@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import Listagem from './pages/Listagem'
 import './App.css';
+import Atualizar from './pages/Atualizar';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <header className="App-header">
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/atualizar/:id" element={<Atualizar />} />
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/listagem" element={<Listagem />} />
         </Routes>

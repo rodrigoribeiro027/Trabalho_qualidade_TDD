@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import './Auth.css';
 import { useNavigate } from "react-router";
-import React, { useState, useEffect, useCallback, SetStateAction, useRef } from "react";
+import React, { useCallback } from "react";
 import axios from 'axios';
 import { api } from "../service/api";
 import { useForm } from "react-hook-form";
@@ -12,7 +12,6 @@ interface Cadastro {
   nome: String,
   email: String;
   senha: String,
-  tipoUsuario: Number;
 }
 
 const Cadastro: React.FC = () => {
@@ -24,8 +23,7 @@ const Cadastro: React.FC = () => {
             .post<Cadastro>(`/usuarios/criar`, {
                 nome: data.nome,
                 email: data.email,
-                senha: data.senha,
-                tipoUsuario: data.tipoUsuario
+                senha: data.senha, 
             })
             .then(function (response) {
                 console.log(response);

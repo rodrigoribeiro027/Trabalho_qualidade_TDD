@@ -25,6 +25,18 @@ class UsuarioService {
         }
     }
 
+    public async findUsuariosById(id: string) {
+        try {
+            const usuarios = await Usuarios.findById(id, '-__v')
+            if (!usuarios) {
+                throw `objetivo ${id} não encontrado....`;
+            }
+            return usuarios
+        } catch (error) {
+            throw error
+        }
+    }
+
     public async updateUsuario(id: string, usuarioData: any) {
         try {
             const usuario = await Usuarios.findByIdAndUpdate(id, {}, { new: true });

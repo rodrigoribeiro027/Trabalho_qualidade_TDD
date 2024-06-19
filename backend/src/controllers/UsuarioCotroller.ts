@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import UsuarioService from '../services/UsuarioService';
-import { generateToken } from '../middleware/authenticate';
 import { Usuarios } from '../models/Usuarios';
 
 class UsuarioController {
@@ -11,9 +10,7 @@ class UsuarioController {
             if(!usuario){
                 return res.status(404).json(`usuario não encontrado, email ou senha incorreto....`);
             }
-            const token = await generateToken(usuario);
-            res.set('Authorization', `Bearer ${token}`);
-            return res.status(200).json({message:'Login realizado com sucesso...', token:token});
+            return res.status(200).json({message:'Login realizado com sucesso...'});
         }catch(error){
             return res.status(500).json(error);
         }
@@ -37,6 +34,16 @@ class UsuarioController {
         } catch (error) {
             console.error('Erro ao buscar usuários:', error.message);
             res.status(500).json({ error: error.message });
+        }
+    }
+
+    public async buscarPorUmUsuario(req: Request, res: Response) {
+        try {
+            const { id } = req.params
+            const usuario = await UsuarioService.findUsuariosById(id)
+            res.status(200).json(usuario)
+        } catch (error) {
+            res.status(500).json({ message: error })
         }
     }
 

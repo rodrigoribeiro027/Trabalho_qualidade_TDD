@@ -100,7 +100,16 @@ npm start
 ```console
 cd frontend
 ```
-<strong> 2. Executar o teste </strong> 
+<strong> 2. Executar o cypress </strong> 
 ```console
 npx cypress open
 ```
+
+<strong> 3. Clique em E2E Testing </strong> 
+![image](https://github.com/rodrigoribeiro027/Trabalho_qualidade_TDD/assets/90697121/6015dc64-8508-4a47-b106-0e9f0a0e3c5d)
+
+<strong> 4. Selecione o seu navegador de internet (Preferencialmente o Chrome) </strong> 
+![image](https://github.com/rodrigoribeiro027/Trabalho_qualidade_TDD/assets/90697121/3c586abd-73ce-434a-b9f2-47e691053bf2)
+
+<strong> 5. Selecione o spec.cy.ts e o teste já irá acontecer automaticamente </strong> 
+![image](https://github.com/rodrigoribeiro027/Trabalho_qualidade_TDD/assets/90697121/1935c8f5-aab1-43a6-aae8-b538bc8a582f)

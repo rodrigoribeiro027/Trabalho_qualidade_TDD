@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/atualizar/:id" element={<Atualizar />} />
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/listagem" element={<Listagem />} />

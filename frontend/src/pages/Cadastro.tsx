@@ -35,7 +35,7 @@ const Cadastro: React.FC = () => {
 
     const onSubmit = useCallback(async (data: Cadastro) => {
         cadastroUsuario(data);
-        navigate("/login")
+        navigate("/")
     }, []);
     const {
         register,
@@ -61,10 +61,10 @@ const Cadastro: React.FC = () => {
           <label>Senha:</label>
           <input type="password" required className="auth-input" {...register("senha")} />
         </div>
-        <button type="submit" className="auth-button" onSubmit={() => navigate(`/login`)}>Cadastrar</button>
+        <button type="submit" className="auth-button" onSubmit={() => navigate(`/`)}>Cadastrar</button>
       </form>
       <p className="auth-link">
-        Já tem uma conta? <Link to="/login">Login</Link>
+        Já tem uma conta? <Link to="/">Login</Link>
       </p>
     </div>
   );
